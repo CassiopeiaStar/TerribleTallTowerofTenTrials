@@ -13,17 +13,19 @@ pub async fn game(
 ) -> StateChange {
     loop {
         if resources.level == 0 ||
-            resources.new_level_request || 
-            is_key_pressed(KeyCode::P) 
+            resources.new_level_request
+            //is_key_pressed(KeyCode::P) 
         {
             new_level(world,resources);
             resources.new_level_request = false;
         }
 
+        /*
         if is_key_pressed(KeyCode::M) {
             emit_ranged_attack_animation(world,(0,0),(5,0),WHITE);
             dbg!();
         }
+        */
         update_fov(world,resources);
         let actions = player_input(world,resources).await;
         if player_actions(world,resources,actions) {
