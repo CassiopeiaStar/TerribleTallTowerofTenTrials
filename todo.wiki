@@ -1,0 +1,58 @@
+== SUNDAY ==
+- [X] Game Init
+- [X] Entity Factory
+- [X] Draw sprites
+- [X] player
+- [X] Doors
+
+== MONDAY ==
+- [X] Inventory
+- [X] Basic Dungeon Gen
+- [X] kill entities
+ 
+== TUESDAY ==
+- [X] Pathfinding
+- [X] Mouse movement
+- [X] Behavior
+- [X] Game Over
+- [X] FOV
+- [X] memory
+- [X] integrate behavior and fov
+- [X] monster memory
+
+== WEDNESDAY ==
+- [X] HUD
+- [X] Main Menu
+- [X] Seed RNG from main menu time
+- [X] Highlights
+- [X] refine combat (dodging, armor, etc.)
+
+== THURSDAY ==
+- [X] Equipment
+- [X] ranged attacks
+- [X] Better Dungeon generation
+
+== FRIDAY ==
+- [X] fill dungeon with monsters
+- [X] combat messages
+- [X] fill dungeon with items
+- [X] Use items
+- [X] better menus
+- [X] equipment state
+- [X] don't delete inventory entities on level change
+
+== SATURDAY ==
+- [X] clear memories on new level
+- [X] scale combat message location
+- [X] Axe
+- [X] better bat behavior
+- [X] ranged attack animation
+- [ ] Fireball
+- [ ] Bow
+- [ ] right click to view
+- [ ] other weapons
+- [ ] story
+- [ ] Game win
+- [ ] playtesting
+- [ ] remove debug bullshit
+- [ ] upload to itch.io

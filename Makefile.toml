@@ -1,0 +1,11 @@
+
+[tasks.release]
+dependencies = ["compile"]
+
+[tasks.compile]
+args = ["build", "--target", "wasm32-unknown-unknown", "--release"]
+command = "cargo"
+
+[tasks.serve]
+command = "basic-http-server"
+dependencies = ["release"]
