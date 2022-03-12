@@ -26,7 +26,7 @@ pub async fn game(
             dbg!();
         }
         */
-        update_fov(world,resources);
+        update_fov(world,resources,false);
         let actions = player_input(world,resources).await;
         if player_actions(world,resources,actions) {
             memory_system(world,resources);
@@ -36,7 +36,7 @@ pub async fn game(
                 behaviors.push((ent,behavior.clone()));
             }
             for (actor,behavior) in behaviors.iter() {
-                update_fov(world,resources);
+                update_fov(world,resources,false);
                 act(world,resources,*actor,*behavior);
             }
 
@@ -51,7 +51,7 @@ pub async fn game(
 
 
 
-        update_fov(world,resources);
+        update_fov(world,resources,false);
         highlight_mouse_movement(world,resources);
         draw_map_and_hud(world,resources);
         animation_system(world);
@@ -59,11 +59,6 @@ pub async fn game(
         clear_hightlights(resources);
         next_frame().await
     }
-}
-
-fn start_with_health_pot(world:&mut World,resources:&mut Resources) {
-    let ent = spawn(world,EntityKind::HealthPotion);
-    resources.player.inventory.push(ent);
 }
 
 fn reset_game(world:&mut World,resources: &mut Resources) {
@@ -385,6 +380,10 @@ fn player_actions(world: &mut World, resources: &mut Resources, actions: Vec<Pla
                                 health.current = health.max;
                                 action_taken = true;
                             }
+                        }
+                        Useable::MagicMapping => {
+                            update_fov(world,resources,true);
+                            update_fov(world,resources,false);
                         }
                     }
                     let mut index_to_remove = Vec::new();

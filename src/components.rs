@@ -150,7 +150,7 @@ pub enum Useable {
 
     //scrolls
     //Fireball,
-    //Magic Mapping
+    MagicMapping
 
 }
 

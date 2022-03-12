@@ -3,10 +3,10 @@ use hecs::*;
 use crate::prelude::*;
 use bresenham::Bresenham;
 
-pub fn update_fov(world: &mut World,resources: &mut Resources) {
+pub fn update_fov(world: &mut World,resources: &mut Resources,magic_mapping: bool) {
     let player = player(world).unwrap();
     let positions_in_fov = if let Ok(pos) = world.get::<Pos>(player) {
-        fov(world,(pos.x,pos.y),FOV_DISTANCE)
+        fov(world,(pos.x,pos.y),FOV_DISTANCE,magic_mapping)
     } else {
         HashSet::new()
     };
@@ -26,7 +26,6 @@ pub fn update_fov(world: &mut World,resources: &mut Resources) {
                 //create memory
                 let mut appearance = appearance.clone();
                 appearance.in_fov = false;
-
                 
                 new_memories.push((
                     PlayerMemory,
@@ -65,8 +64,8 @@ fn line_blocked(block_map: &HashSet<(i32,i32)>, a: (i32,i32), b: (i32,i32)) -> b
     false
 }
 
-fn fov(world: &World, origin: (i32,i32), distance: u32) -> HashSet<(i32,i32)> {
-    let debug = DEBUG_FOV;
+fn fov(world: &World, origin: (i32,i32), distance: u32, magic_mapping: bool ) -> HashSet<(i32,i32)> {
+    let debug = magic_mapping || DEBUG_FOV;
     let mut set = HashSet::new();
     let distance = distance as i32;
     let left = origin.0-distance;

@@ -26,6 +26,7 @@ pub enum EntityKind {
     Armor,
     //Spear,
     HealthPotion,
+    MagicMapping,
     //Scroll,
 
 }
@@ -295,6 +296,21 @@ pub fn spawn(world:&mut World, kind:EntityKind) -> Entity {
                 ..Default::default()
             },
             Useable::Heal,
+        )) }
+        EntityKind::MagicMapping => { world.spawn((
+            OnLevel,
+            Name{
+                name: "Scroll of Mapping".to_owned(),
+                description: "".to_owned()
+            },
+            Item,
+            Appearance{
+                sprite: 31,
+                color: WHITE,
+                layer: 5,
+                ..Default::default()
+            },
+            Useable::MagicMapping,
         )) }
 
         //Terrain

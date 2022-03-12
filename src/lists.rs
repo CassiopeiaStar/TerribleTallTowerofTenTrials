@@ -17,6 +17,7 @@ lazy_static! {
         EntityKind::Sword,
         EntityKind::Axe,
         EntityKind::Armor,
+        EntityKind::MagicMapping,
     ];
 
     pub static ref DUNGEON_TEMPLATES: Vec<DungeonTemplate> = vec![

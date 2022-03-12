@@ -56,12 +56,18 @@ pub async fn inventory_state(
         }
         draw(world,resources);
         
-        widgets::Window::new(hash!(), vec2(200.,200.),vec2(500.,500.))
+        widgets::Window::new(hash!(), vec2(100.,100.),vec2(650.,600.))
             .titlebar(false)
             .movable(false)
-            .label("Inventory")
             .ui(&mut *root_ui(), |ui| {
-                Group::new(hash!("inventory label"), Vec2::new(450.,40.)).ui(ui, |ui| {
+                Group::new(hash!("Equipment label"),Vec2::new(600.,100.)).ui(ui,|ui|{
+                    ui.label(Vec2::new(10.,10.),&format!("{}","Equipment".to_owned()));
+                    if let Some((ent,name)) = &weapon_data {
+                        ui.label(Vec2::new(10.,40.),&format!("Weapon: {}",name));
+                    }
+                });
+
+                Group::new(hash!("inventory label"), Vec2::new(600.,40.)).ui(ui, |ui| {
                     ui.label(Vec2::new(10.,10.),&format!("{}","Inventory".to_owned()));
                 });
                 for (i,(ent,name,equipable,useable)) in items.iter().enumerate() {
@@ -73,18 +79,18 @@ pub async fn inventory_state(
                         }
                     };
 
-                    Group::new(hash!("inventory",i), Vec2::new(450.,60.)).ui(ui, |ui| {
+                    Group::new(hash!("inventory",i), Vec2::new(600.,60.)).ui(ui, |ui| {
                         ui.label(Vec2::new(10.,10.),&format!("{}",name));
-                        if ui.button(vec2(200.,10.),"Drop") {
+                        if ui.button(vec2(400.,10.),"Drop") {
                             actions.push(PlayerAction::DropItem(*ent));
                         }
                         if equipable.is_some() {
-                            if ui.button(vec2(250.,10.),"Equip") {
+                            if ui.button(vec2(450.,10.),"Equip") {
                                 actions.push(PlayerAction::EquipItem(*ent));
                             }
                         }
                         if useable.is_some() {
-                            if ui.button(vec2(300.,10.),"Use") {
+                            if ui.button(vec2(500.,10.),"Use") {
                                 actions.push(PlayerAction::UseItem(*ent));
                             }
                         }
@@ -93,16 +99,6 @@ pub async fn inventory_state(
                 }
             });
 
-        widgets::Window::new(hash!(), vec2(200.,100.),vec2(500.,100.))
-            .titlebar(false)
-            .movable(false)
-            .ui(&mut *root_ui(), |ui| {
-                ui.label(Vec2::new(10.,10.),&format!("{}","Equipment".to_owned()));
-                if let Some((ent,name)) = &weapon_data {
-                    ui.label(Vec2::new(10.,40.),&format!("Weapon: {}",name));
-                }
-                
-            });
 
         if !actions.is_empty() {break;}
         next_frame().await;
