@@ -48,11 +48,15 @@
 - [X] better bat behavior
 - [X] ranged attack animation
 - [ ] Fireball
+- [ ] throwables
 - [ ] Bow
-- [ ] right click to view
-- [ ] other weapons
+- [ ] better controls
+- [ ] tutorial screen
+- [ ] other weapons?
+- [ ] Game win (level 10?)
 - [ ] story
-- [ ] Game win
 - [ ] playtesting
 - [ ] remove debug bullshit
+- [ ] right click to view
+- [ ] teleport scroll
 - [ ] upload to itch.io

@@ -24,7 +24,7 @@ pub enum EntityKind {
     Sword,
     Axe,
     Armor,
-    //Spear,
+    ThrowingSpear,
     HealthPotion,
     MagicMapping,
     //Scroll,
@@ -260,6 +260,7 @@ pub fn spawn(world:&mut World, kind:EntityKind) -> Entity {
                     damage_high: 3,
                     to_hit: 2,
                     axe: true,
+                    ..Default::default()
                 }
             }
         )) }
@@ -282,6 +283,8 @@ pub fn spawn(world:&mut World, kind:EntityKind) -> Entity {
                 armor: 2,
             }
         )) }
+
+
         EntityKind::HealthPotion => { world.spawn((
             OnLevel,
             Name{
@@ -296,6 +299,28 @@ pub fn spawn(world:&mut World, kind:EntityKind) -> Entity {
                 ..Default::default()
             },
             Useable::Heal,
+        )) }
+        EntityKind::ThrowingSpear => { world.spawn((
+            OnLevel,
+            Name{
+                name: "Throwing Spear".to_owned(),
+                description: "".to_owned()
+            },
+            Item,
+            Appearance{
+                sprite: 22,
+                color: WHITE,
+                layer: 5,
+                ..Default::default()
+            },
+            Useable::Throw(AttackData {
+                range: Range::Ranged(10),
+                damage_low: 1,
+                damage_high: 2,
+                to_hit: 4,
+                axe: false,
+                ..Default::default()
+            },false),
         )) }
         EntityKind::MagicMapping => { world.spawn((
             OnLevel,

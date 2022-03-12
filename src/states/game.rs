@@ -3,6 +3,7 @@ use hecs::*;
 use crate::prelude::*;
 use crate::combat::*;
 use crate::states::inventory::inventory_state;
+use crate::states::aiming::aiming_state;
 use super::{GameState,StateChange};
 use crate::monster_memory::memory_system;
 use crate::dungeon_gen::*;
@@ -28,7 +29,7 @@ pub async fn game(
         */
         update_fov(world,resources,false);
         let actions = player_input(world,resources).await;
-        if player_actions(world,resources,actions) {
+        if player_actions(world,resources,actions).await {
             memory_system(world,resources);
             //moster actions
             let mut behaviors = Vec::new();
@@ -240,7 +241,7 @@ fn highlight_mouse_movement(world: &mut World,resources: &mut Resources) {
     }
 }
 
-fn player_actions(world: &mut World, resources: &mut Resources, actions: Vec<PlayerAction>) -> bool {
+async fn player_actions(world: &mut World, resources: &mut Resources, actions: Vec<PlayerAction>) -> bool {
     let mut action_taken = false;
     let player = player(world).unwrap();
     let player_position = {
@@ -374,26 +375,51 @@ fn player_actions(world: &mut World, resources: &mut Resources, actions: Vec<Pla
             PlayerAction::UseItem(ent) => {
                 let useable: Option<Useable> = get_cloned(world,ent);
                 if let Some(useable) = useable {
+                    let mut item_used = false;
                     match useable {
                         Useable::Heal => {
                             if let Ok(mut health) = world.get_mut::<Health>(player) {
                                 health.current = health.max;
                                 action_taken = true;
                             }
+                            item_used = true;
                         }
                         Useable::MagicMapping => {
                             update_fov(world,resources,true);
                             update_fov(world,resources,false);
+                            item_used = true;
+                        }
+                        Useable::Throw(attack_data,mulch) => {
+                            let mut targets = Vec::new();
+                            if let Some(tile) = aiming_state(world,resources,&attack_data).await {
+                                item_used = true;
+                                for target_ent in get_entities_at(world,tile) {
+                                    if let Ok(_) = world.get::<Health>(target_ent) {
+                                        targets.push(target_ent);
+                                    }
+                                }
+                                if !mulch {
+                                    world.insert_one(ent,Pos::new(tile.0,tile.1)).ok();
+                                }
+                            }
+
+                            for target in targets {
+                                attack(world,player,target,attack_data.clone());
+                            }
+
+                            
                         }
                     }
-                    let mut index_to_remove = Vec::new();
-                    for (i,e) in resources.player.inventory.iter().enumerate() {
-                        if *e == ent {
-                            index_to_remove.push(i);
+                    if item_used {
+                        let mut index_to_remove = Vec::new();
+                        for (i,e) in resources.player.inventory.iter().enumerate() {
+                            if *e == ent {
+                                index_to_remove.push(i);
+                            }
                         }
-                    }
-                    for i in index_to_remove {
-                        resources.player.inventory.remove(i);
+                        for i in index_to_remove {
+                            resources.player.inventory.remove(i);
+                        }
                     }
                 }
             }

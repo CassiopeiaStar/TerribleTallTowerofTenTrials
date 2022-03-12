@@ -40,6 +40,7 @@ pub struct AttackData {
     pub damage_high: i32,
     pub to_hit: i32,
     pub axe: bool,
+    pub fireball: bool,
 }
 
 impl Default for AttackData {
@@ -50,6 +51,7 @@ impl Default for AttackData {
             damage_high: 1,
             to_hit: 0,
             axe: false,
+            fireball: false,
         }
     }
 }

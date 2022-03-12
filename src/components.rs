@@ -141,7 +141,7 @@ impl Into<(i32,i32)> for Pos {
     }
 }
 
-#[derive(Copy,Clone,Debug)]
+#[derive(Clone,Debug)]
 pub enum Useable {
     //potions
     Heal,
@@ -150,7 +150,8 @@ pub enum Useable {
 
     //scrolls
     //Fireball,
-    MagicMapping
+    MagicMapping,
+    Throw(AttackData,bool),
 
 }
 

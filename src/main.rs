@@ -274,3 +274,4 @@ pub fn get_cloned<T: Clone + Component>(world: &World, entity: Entity) -> Option
         None
     }
 }
+
