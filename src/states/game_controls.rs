@@ -1,3 +1,4 @@
+use crate::constants::*;
 use macroquad::prelude::*;
 use macroquad::ui::{
     hash, root_ui,
@@ -17,44 +18,27 @@ pub async fn control_screen() {
                 break;
             }
 
-        let width = screen_width()-100.;
-        let height = screen_height()-100.;
-        widgets::Window::new(hash!(), vec2(10.,10.),vec2(width,height))
-            .movable(false)
-            .ui(&mut *root_ui(), |ui| {
-                Group::new(hash!(),Vec2::new(width-50.,50.)).ui(ui,|ui|{
-                    ui.label(Vec2::new(10.,10.),
-                        "Press C at any time to view controls"
-                    );
-                });
-                Group::new(hash!(),Vec2::new(width-50.,50.)).ui(ui,|ui|{
-                    ui.label(Vec2::new(10.,10.),
-                        "WASD or left mouse click to move"
-                    );
-                });
-                Group::new(hash!(),Vec2::new(width-50.,50.)).ui(ui,|ui|{
-                    ui.label(Vec2::new(10.,10.),
-                        "Walk into enemies to attack them"
-                    );
-                });
-                Group::new(hash!(),Vec2::new(width-50.,50.)).ui(ui,|ui|{
-                    ui.label(Vec2::new(10.,10.),
-                        "E or right click self to pickup items"
-                    );
-                });
-                Group::new(hash!(),Vec2::new(width-50.,50.)).ui(ui,|ui|{
-                    ui.label(Vec2::new(10.,10.),
-                        "Tab or I to open inventory"
-                    );
-                });
-                Group::new(hash!(),Vec2::new(width-50.,50.)).ui(ui,|ui|{
-                    ui.label(Vec2::new(10.,10.),
-                        "Items can be equiped or used from the inventory"
-                    );
-                });
+        let tile_size = screen_height()/(ARENA_HEIGHT as f32+2.);
 
-            });
-
+        for (i,msg) in vec![
+            "Press C at any time to view controls",
+            "WASD or left mouse click to move",
+            "Space to wait",
+            "E or right click self to pickup items",
+            "Tab or I to open inventory",
+            "Items can be equiped or used from the inventory",
+            "Walk into enemies to attack them",
+        ].into_iter().enumerate() {
+            draw_text_ex(
+                msg,
+                tile_size*2.,tile_size*i as f32+ 100.,
+                TextParams {
+                    font_size: tile_size as u16,
+                    color: LIGHTGRAY,
+                    ..Default::default()
+                }
+            );
+        }
 
         next_frame().await;
     }

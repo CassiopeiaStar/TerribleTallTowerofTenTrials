@@ -75,6 +75,8 @@ pub fn window_conf() -> Conf {
 #[macroquad::main(window_conf)]
 async fn main() {
     set_pc_assets_folder("assets");
+    dbg!(&WINDOW_WIDTH);
+    dbg!(&WINDOW_HEIGHT);
 
 
     let mut world = World::new();

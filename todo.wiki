@@ -50,13 +50,13 @@
 - [ ] Fireball
 - [X] throwables
 - [ ] Bow
-- [ ] better controls
-- [ ] tutorial screen
+- [X] better controls
+- [X] tutorial screen
 - [ ] other weapons?
 - [ ] Game win (level 10?)
 - [ ] story
 - [ ] playtesting
-- [ ] remove debug bullshit
+- [X] remove debug bullshit
 - [ ] right click to view
 - [ ] teleport scroll
 - [ ] upload to itch.io
