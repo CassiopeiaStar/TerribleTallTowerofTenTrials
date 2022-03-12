@@ -117,13 +117,13 @@ pub fn spawn(world:&mut World, kind:EntityKind) -> Entity {
                 attack: AttackData {
                     range: Range::Ranged(3),
                     damage_low: 2,
-                    damage_high: 3,
-                    to_hit: 2,
+                    damage_high: 2,
+                    to_hit: -2,
                     ..Default::default()
                 }
             },
             Defense {
-                dodging: 5,
+                dodging: -2,
                 armor: 0,
             }
         )) },
@@ -145,15 +145,15 @@ pub fn spawn(world:&mut World, kind:EntityKind) -> Entity {
             Weapon{
                 attack: AttackData {
                     range: Range::Meele,
-                    damage_low: 2,
-                    damage_high: 3,
-                    to_hit: 2,
+                    damage_low: 1,
+                    damage_high: 2,
+                    to_hit: 0,
                     ..Default::default()
                 }
             },
             Defense {
                 dodging: 0,
-                armor: 2,
+                armor: 1,
             }
         )) },
         EntityKind::Bat => { world.spawn((
@@ -176,12 +176,12 @@ pub fn spawn(world:&mut World, kind:EntityKind) -> Entity {
                     range: Range::Meele,
                     damage_low: 1,
                     damage_high: 1,
-                    to_hit: -3,
+                    to_hit: -1,
                     ..Default::default()
                 }
             },
             Defense {
-                dodging: 3,
+                dodging: 1,
                 armor: 0
             },
         )) },
@@ -193,13 +193,13 @@ pub fn spawn(world:&mut World, kind:EntityKind) -> Entity {
             },
             Appearance{
                 sprite: 11,
-                color: BROWN,
+                color: DARKBROWN,
                 layer: 9,
                 ..Default::default()
             },
             Health::new(1),
             Bump::Attack,
-            Behavior::Erratic(10),
+            Behavior::Erratic(20),
             Weapon{
                 attack: AttackData {
                     range: Range::Meele,

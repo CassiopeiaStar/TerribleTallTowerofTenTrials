@@ -41,5 +41,14 @@ pub async fn main_menu(world: &mut World, resources: &mut Resources) -> StateCha
 
     }
     macroquad::rand::srand((get_time()*100000.) as u64);
+    start_with_health_pot(world,resources);
     StateChange::Replace(GameState::Game)
 }
+
+
+fn start_with_health_pot(world:&mut World,resources:&mut Resources) {
+    let ent = spawn(world,EntityKind::HealthPotion);
+    world.remove_one::<OnLevel>(ent).ok();
+    resources.player.inventory.push(ent);
+}
+

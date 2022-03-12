@@ -61,6 +61,11 @@ pub async fn game(
     }
 }
 
+fn start_with_health_pot(world:&mut World,resources:&mut Resources) {
+    let ent = spawn(world,EntityKind::HealthPotion);
+    resources.player.inventory.push(ent);
+}
+
 fn reset_game(world:&mut World,resources: &mut Resources) {
     world.clear();
     resources.level = 0;
