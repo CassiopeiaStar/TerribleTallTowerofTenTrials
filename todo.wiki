@@ -48,7 +48,7 @@
 - [X] better bat behavior
 - [X] ranged attack animation
 - [ ] Fireball
-- [ ] throwables
+- [X] throwables
 - [ ] Bow
 - [ ] better controls
 - [ ] tutorial screen

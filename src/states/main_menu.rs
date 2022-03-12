@@ -3,6 +3,7 @@ use hecs::*;
 use macroquad::prelude::*;
 use crate::prelude::*;
 use crate::resources::*;
+use crate::states::game_controls::*;
 
 pub async fn main_menu(world: &mut World, resources: &mut Resources) -> StateChange {
     world.clear();
@@ -32,12 +33,26 @@ pub async fn main_menu(world: &mut World, resources: &mut Resources) -> StateCha
             }
         );
 
+        draw_text_ex(
+            "Press C at any time to view game controls",
+            tile_size*2.,tile_size*17.,
+            TextParams {
+                font_size: tile_size as u16,
+                color: LIGHTGRAY,
+                font: resources.font,
+                ..Default::default()
+            }
+        );
         next_frame().await;
         if is_key_pressed(KeyCode::Space) ||
             is_key_pressed(KeyCode::Enter) ||
             is_key_pressed(KeyCode::Escape) {
                 break;
             }
+
+        if is_key_pressed(KeyCode::C) {
+            control_screen().await;
+        }
 
     }
     macroquad::rand::srand((get_time()*100000.) as u64);

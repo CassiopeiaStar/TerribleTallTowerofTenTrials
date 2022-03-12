@@ -4,6 +4,7 @@ use crate::prelude::*;
 use crate::combat::*;
 use crate::states::inventory::inventory_state;
 use crate::states::aiming::aiming_state;
+use crate::states::game_controls::control_screen;
 use super::{GameState,StateChange};
 use crate::monster_memory::memory_system;
 use crate::dungeon_gen::*;
@@ -20,7 +21,9 @@ pub async fn game(
             new_level(world,resources);
             resources.new_level_request = false;
         }
-
+        if is_key_pressed(KeyCode::C) {
+            control_screen().await;
+        }
         /*
         if is_key_pressed(KeyCode::M) {
             emit_ranged_attack_animation(world,(0,0),(5,0),WHITE);
@@ -133,10 +136,10 @@ async fn player_input (
     if is_key_pressed(KeyCode::D) {
         actions.push(PlayerAction::TryWalk(Dir::E));
     }
-    if is_key_pressed(KeyCode::Period) {
+    if is_key_pressed(KeyCode::Period) || is_key_pressed(KeyCode::Space) {
         actions.push(PlayerAction::Wait);
     }
-    if is_key_pressed(KeyCode::Comma) || is_key_pressed(KeyCode::G) {
+    if is_key_pressed(KeyCode::Comma) || is_key_pressed(KeyCode::G) || is_key_pressed(KeyCode::E) {
         let player_position = {
             let player_position = world.get::<Pos>(player).unwrap();
             Pos::new(player_position.x,player_position.y)

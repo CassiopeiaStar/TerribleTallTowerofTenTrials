@@ -6,6 +6,7 @@ pub mod inventory;
 pub mod game_over;
 pub mod main_menu;
 pub mod aiming;
+pub mod game_controls;
 
 pub enum GameState {
     Game,
