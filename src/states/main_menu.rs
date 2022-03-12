@@ -47,7 +47,7 @@ pub async fn main_menu(world: &mut World, resources: &mut Resources) -> StateCha
 
 
 fn start_with_health_pot(world:&mut World,resources:&mut Resources) {
-    let ent = spawn(world,EntityKind::ThrowingSpear);
+    let ent = spawn(world,EntityKind::HealthPotion);
     world.remove_one::<OnLevel>(ent).ok();
     resources.player.inventory.push(ent);
 }
