@@ -53,7 +53,7 @@ pub async fn game(
             }
         }
 
-        if resources.level > 1 {
+        if resources.level > 10 {
             return StateChange::Replace(GameState::Win);
         }
 
