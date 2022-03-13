@@ -12,6 +12,7 @@ pub enum EntityKind {
     Door,
     Wall,
     Stairs,
+    Exit,
 
     //enemies
     Rat,
@@ -19,6 +20,8 @@ pub enum EntityKind {
     Zombie,
     Wizard,
     Centipede,
+    Goblin,
+    Gnome,
 
     //items
     Sword,
@@ -47,7 +50,7 @@ pub fn spawn(world:&mut World, kind:EntityKind) -> Entity {
                 layer: 10,
                 ..Default::default()
             },
-            Health::new(10),
+            Health::new(15),
             Name{
                 name: "Player".to_owned(),
                 description: "This is you".to_owned()
@@ -117,8 +120,8 @@ pub fn spawn(world:&mut World, kind:EntityKind) -> Entity {
             Weapon{
                 attack: AttackData {
                     range: Range::Ranged(3),
-                    damage_low: 2,
-                    damage_high: 2,
+                    damage_low: 1,
+                    damage_high: 3,
                     to_hit: -2,
                     ..Default::default()
                 }
@@ -142,7 +145,7 @@ pub fn spawn(world:&mut World, kind:EntityKind) -> Entity {
             },
             Health::new(2),
             Bump::Attack,
-            Behavior::Erratic(10),
+            Behavior::Erratic(30),
             Weapon{
                 attack: AttackData {
                     range: Range::Meele,
@@ -155,6 +158,64 @@ pub fn spawn(world:&mut World, kind:EntityKind) -> Entity {
             Defense {
                 dodging: 0,
                 armor: 1,
+            }
+        )) },
+        EntityKind::Goblin => {world.spawn((
+            OnLevel,
+            Name{
+                name: "Goblin".to_owned(),
+                description: "".to_owned()
+            },
+            Appearance{
+                sprite: 16,
+                color: GREEN,
+                layer: 9,
+                ..Default::default()
+            },
+            Health::new(5),
+            Bump::Attack,
+            Behavior::Erratic(10),
+            Weapon{
+                attack: AttackData {
+                    range: Range::Meele,
+                    damage_low: 1,
+                    damage_high: 2,
+                    to_hit: 0,
+                    ..Default::default()
+                }
+            },
+            Defense {
+                dodging: -3,
+                armor: 2,
+            }
+        )) },
+        EntityKind::Gnome => {world.spawn((
+            OnLevel,
+            Name{
+                name: "Gnome".to_owned(),
+                description: "".to_owned()
+            },
+            Appearance{
+                sprite: 17,
+                color: RED,
+                layer: 9,
+                ..Default::default()
+            },
+            Health::new(2),
+            Bump::Attack,
+            Behavior::Erratic(50),
+            Weapon{
+                attack: AttackData {
+                    range: Range::Ranged(3),
+                    damage_low: 1,
+                    damage_high: 1,
+                    to_hit: 4,
+                    ..Default::default()
+                }
+            },
+            Defense {
+                dodging: 0,
+                armor: 0,
             }
         )) },
         EntityKind::Bat => { world.spawn((
@@ -279,8 +340,8 @@ pub fn spawn(world:&mut World, kind:EntityKind) -> Entity {
             },
             Equipable::Armor,
             Defense{
-                dodging: -2,
-                armor: 2,
+                dodging: -3,
+                armor: 3,
             }
         )) }
 
@@ -389,6 +450,21 @@ pub fn spawn(world:&mut World, kind:EntityKind) -> Entity {
             },
             Appearance{
                 sprite: 4,
+                color: WHITE,
+                layer: 5,
+                ..Default::default()
+            },
+            Bump::NextLevel,
+        ))}
+
+        EntityKind::Exit => { world.spawn((
+            OnLevel,
+            Name{
+                name: "Exit".to_owned(),
+                description: "".to_owned()
+            },
+            Appearance{
+                sprite: 8,
                 color: WHITE,
                 layer: 5,
                 ..Default::default()

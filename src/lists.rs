@@ -9,6 +9,8 @@ lazy_static! {
         EntityKind::Rat,
         EntityKind::Centipede,
         EntityKind::Zombie,
+        EntityKind::Gnome,
+        EntityKind::Goblin,
         EntityKind::Wizard,
     ];
 
@@ -17,6 +19,7 @@ lazy_static! {
         EntityKind::Sword,
         EntityKind::Axe,
         EntityKind::Armor,
+        EntityKind::ThrowingSpear,
         EntityKind::MagicMapping,
     ];
 

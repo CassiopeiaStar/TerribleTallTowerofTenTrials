@@ -240,6 +240,7 @@ pub struct QuadrantMap {
     loot: u32,
     danger_rooms: Vec<usize>,
     treasure_rooms: Vec<usize>,
+    level: u32,
 }
 
 
@@ -259,6 +260,7 @@ impl QuadrantMap {
             loot: level,
             danger_rooms: template.danger_rooms,
             treasure_rooms: vec![gen_range(0,8)],
+            level,
         }
     }
 
@@ -296,7 +298,12 @@ impl QuadrantMap {
                 let coordinates = tiles_within.pop().unwrap();
                 let tile_index = map.get_index(coordinates).unwrap();
 
-                map.terrain[tile_index] = EntityKind::Stairs;
+                if self.level == 10 {
+                    map.terrain[tile_index] = EntityKind::Exit;
+                } else {
+                    map.terrain[tile_index] = EntityKind::Stairs;
+                }
+
             }
 
             if room.loot {

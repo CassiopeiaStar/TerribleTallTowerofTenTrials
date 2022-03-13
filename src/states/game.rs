@@ -53,6 +53,10 @@ pub async fn game(
             }
         }
 
+        if resources.level > 1 {
+            return StateChange::Replace(GameState::Win);
+        }
+
 
 
         update_fov(world,resources,false);

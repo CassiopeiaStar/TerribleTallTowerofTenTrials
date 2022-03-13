@@ -10,12 +10,31 @@ pub async fn main_menu(world: &mut World, resources: &mut Resources) -> StateCha
     *resources = load_resources().await;
     loop {
         let tile_size = screen_height()/(ARENA_HEIGHT as f32+2.);
-        
-        draw_text_ex(
-            "Welcome to Ended",
-            tile_size*2.,tile_size*5.,
+         draw_text_ex(
+            "Welcome to...",
+            tile_size*2.,tile_size*3.,
             TextParams {
-                font_size: tile_size as u16* 3,
+                font_size: tile_size as u16* 1,
+                color: LIGHTGRAY,
+                font: resources.font,
+                ..Default::default()
+            }
+        );       
+        draw_text_ex(
+            "The Terrible Tall",
+            tile_size*2.,tile_size*6.,
+            TextParams {
+                font_size: tile_size as u16* 2,
+                color: LIGHTGRAY,
+                font: resources.font,
+                ..Default::default()
+            }
+        );
+        draw_text_ex(
+            "Tower of Ten Trials",
+            tile_size*2.,tile_size*8.,
+            TextParams {
+                font_size: tile_size as u16* 2,
                 color: LIGHTGRAY,
                 font: resources.font,
                 ..Default::default()
