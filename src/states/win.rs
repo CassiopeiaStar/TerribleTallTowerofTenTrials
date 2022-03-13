@@ -19,7 +19,7 @@ pub async fn win_state(world: &mut World,resources: &mut Resources) -> StateChan
 
         draw_text_ex(
             "Thank you for playing",
-            tile_size*2.,tile_size*17.,
+            tile_size*3.,tile_size*17.,
             TextParams {
                 font_size: tile_size as u16,
                 color: LIGHTGRAY,
